@@ -29,6 +29,8 @@ exports.home = async () => {
     // data,
   };
 
+  console.log(functionsClient.auth());
+
   // Run request
   const response = await functionsClient.callFunction(request);
   console.log(response);
