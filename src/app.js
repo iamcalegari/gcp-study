@@ -4,8 +4,8 @@ const port = 3000;
 
 const { home } = require("./home");
 
-app.get("/", (req, res) => {
-  res.send(home());
+app.get("/", async (req, res) => {
+  res.send(await home());
 });
 
 app.listen(port, () => {
