@@ -1,47 +1,37 @@
 "use strict";
 
-const { GoogleAuth } = require("google-auth-library");
-const axios = require("axios");
+const { CloudFunctionsServiceClient } = require("@google-cloud/functions");
+
+async function callFunction(functionFullName, data) {
+  const client = new CloudFunctionsServiceClient();
+
+  try {
+    const [response] = await client.callFunction({
+      name: functionFullName,
+      data,
+    });
+
+    // Exiba a resposta
+    console.log(response);
+  } catch (err) {
+    console.error("Erro ao chamar a função:", err);
+  }
+}
+
+// Chame a função assincronamente
 
 exports.home = async () => {
-  try {
-    const accessToken = await getAccessToken();
-    const result = await callCloudFunction(accessToken);
+  // Substitua 'seu-projeto' pelo ID do seu projeto no Google Cloud
+  const projectId = "reela-arbitralis-406815";
+  const location = "southamerica-east1"; // Substitua pela região onde sua função está implantada
+  const functionName = "hello-world";
 
-    res.json({ result });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
-  }
+  // Crie o nome da função com base no projeto, localização e nome da função
+  const functionFullName = `projects/${projectId}/locations/${location}/functions/${functionName}`;
+
+  // Parâmetros que você deseja passar para a função (opcional)
+  const data = '{"key": "value"}';
+
+  // Chame a função
+  callFunction(functionFullName, data);
 };
-
-async function getAccessToken() {
-  const auth = new GoogleAuth();
-  const client = await auth.getClient({
-    scopes: ["https://www.googleapis.com/auth/cloud-platform"],
-  });
-
-  const tokens = await client.getAccessToken();
-  return tokens.token;
-}
-
-async function callCloudFunction(accessToken) {
-  // Substitua este trecho com a lógica específica da sua Cloud Function
-  const cloudFunctionUrl =
-    "https://southamerica-east1-freela-arbitralis-406815.cloudfunctions.net/hello-world"; // Substitua pelo URL da sua Cloud Function
-
-  const response = await axios.get(cloudFunctionUrl, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + accessToken,
-    },
-  });
-
-  if (response.status !== 200) {
-    throw new Error(
-      `Cloud Function request failed with status ${response.status}`
-    );
-  }
-
-  return response.data;
-}
