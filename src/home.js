@@ -8,7 +8,7 @@ async function callFunction(functionFullName, data) {
   try {
     const [response] = await client.callFunction({
       name: functionFullName,
-      data: JSON.stringify(data),
+      data: `{data: ${JSON.stringify(data)}}`,
     });
 
     // Exiba a resposta
