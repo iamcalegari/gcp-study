@@ -29,7 +29,7 @@ exports.home = async () => {
   // Substitua 'seu-projeto' pelo ID do seu projeto no Google Cloud
   const projectId = "freela-arbitralis-406815";
   const location = "southamerica-east1"; // Substitua pela região onde sua função está implantada
-  const functionName = "export-excel-to-email";
+  const functionName = "export-excel-to-emai";
 
   // Crie o nome da função com base no projeto, localização e nome da função
   const functionFullName = `projects/${projectId}/locations/${location}/functions/${functionName}`;
