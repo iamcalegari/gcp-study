@@ -2,7 +2,7 @@ name: Deploy to GCP
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   deploy:
@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     environment: gcp-prod
     env:
-      IMAGE_NAME: gcr.io/$({ secrets.GCP_PROJECT_ID })/site:latest
+      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/site:latest
     steps:
       # Git checkout
       - name: Checkout
-        uses: actions/checkout@v2       
+        uses: actions/checkout@v2
 
       # Login to GCP
       - uses: google-github-actions/setup-gcloud@v0.2.0
-        with: 
-          service_account_key: $({ secrets.GCP_CREDENTIALS })
-          project_id: $({ secrets.GCP_PROJECT_ID })
+        with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       # Gcloud configure Docker
       - name: Configure Docker
