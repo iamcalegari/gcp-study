@@ -5,8 +5,8 @@ const port = 3000;
 const { home } = require("./home");
 
 app.get("/excel", async (req, res) => {
-  const bufferStr = await home();
-  const buffer = Buffer.from(bufferStr);
+  const { body } = await home();
+  const buffer = Buffer.from(body);
   res.send(buffer);
 });
 
