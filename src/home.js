@@ -1,6 +1,8 @@
 "use strict";
 const { CloudFunctionsServiceClient } = require("@google-cloud/functions").v1;
 
+const { GoogleAuth } = require("google-auth-library");
+
 exports.home = async () => {
   // [START cloudfunctions_v1_generated_CloudFunctionsService_CallFunction_async]
   /**
@@ -12,6 +14,7 @@ exports.home = async () => {
   /**
    *  Required. The name of the function to be called.
    */
+  const auth = new GoogleAuth();
   const name = "hello-world";
   /**
    *  Required. Input to be passed to the function.
@@ -21,20 +24,27 @@ exports.home = async () => {
   // Imports the Functions library
 
   // Instantiates a client
-  const functionsClient = new CloudFunctionsServiceClient();
+  try {
+    const functionsClient = new CloudFunctionsServiceClient();
+    const target = await functionsClient.getFunction({ name });
+    const client = await auth.getIdTokenClient(target.httpsTrigger);
+    const resp = await client.request({ url: target.httpsTrigger });
 
-  // Construct request
-  const request = {
-    name,
-    // data,
-  };
+    // Construct request
+    // const request = {
+    //   name,
+    //   // data,
+    // };
 
-  console.log(functionsClient.auth());
+    // console.log(functionsClient.auth());
 
-  // Run request
-  const response = await functionsClient.callFunction(request);
-  console.log(response);
+    // // Run request
+    // const response = await functionsClient.callFunction(request);
+    console.log(resp.data);
 
-  return response;
-  // [END cloudfunctions_v1_generated_CloudFunctionsService_CallFunction_async]
+    return resp.data;
+    // [END cloudfunctions_v1_generated_CloudFunctionsService_CallFunction_async]
+  } catch (err) {
+    return err;
+  }
 };
