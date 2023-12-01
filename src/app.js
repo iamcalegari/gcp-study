@@ -8,7 +8,7 @@ const { home } = require("./home");
 
 app.get("/excel", async (req, res) => {
   const { body } = await home();
-  const buffer = Buffer.from(body);
+  const buffer = Buffer.from(body, "base64");
 
   const filePath = "temp.xlsx";
   fs.writeFileSync(filePath, buffer);
