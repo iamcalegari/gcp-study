@@ -35,16 +35,14 @@ exports.home = async () => {
   const functionFullName = `projects/${projectId}/locations/${location}/functions/${functionName}`;
 
   // Parâmetros que você deseja passar para a função (opcional)
-  const data = {
-    data: [
-      {
-        Nome: ["Alan", "Maria", "Pedro"],
-        Idade: [25, 30, 35],
-        Data_Nascimento: ["1990/05/15", "1985/08/21", "1980/03/10"],
-        Cidade: ["São Paulo", "Rio de Janeiro", "Belo Horizonte"],
-      },
-    ],
-  };
+  const data = [
+    {
+      Nome: ["Alan", "Maria", "Pedro"],
+      Idade: [25, 30, 35],
+      Data_Nascimento: ["1990/05/15", "1985/08/21", "1980/03/10"],
+      Cidade: ["São Paulo", "Rio de Janeiro", "Belo Horizonte"],
+    },
+  ];
 
   // Chame a função
   return await callFunction(functionFullName, data);
