@@ -24,7 +24,7 @@ async function callFunction(functionFullName, data) {
 
 exports.home = async () => {
   // Substitua 'seu-projeto' pelo ID do seu projeto no Google Cloud
-  const projectId = "reela-arbitralis-406815";
+  const projectId = "freela-arbitralis-406815";
   const location = "southamerica-east1"; // Substitua pela região onde sua função está implantada
   const functionName = "hello-world";
 
