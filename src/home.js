@@ -12,11 +12,11 @@ async function callFunction(functionFullName, data) {
     });
 
     // Exiba a resposta
-    console.log(response);
+    console.log("TESTE:", response);
 
     return {
       statusCode: 200,
-      body: JSON.stringify(response),
+      body: JSON.stringify(response.result),
     };
   } catch (err) {
     console.error("Erro ao chamar a função:", err);
