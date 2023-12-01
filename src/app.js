@@ -47,7 +47,9 @@ app.get("/excel", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  res.send("<h1>Hello World!</h1>");
+  res.send(
+    "<div><h1>Para fazer download de um arquivo excel, basta chamar a rota /excel</h1></div><p>Tenha um bom dia!</p>"
+  );
 });
 
 app.listen(port, () => {
