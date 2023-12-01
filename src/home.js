@@ -29,11 +29,13 @@ async function callCloudFunction(accessToken) {
   // Substitua este trecho com a lógica específica da sua Cloud Function
   const cloudFunctionUrl =
     "https://southamerica-east1-freela-arbitralis-406815.cloudfunctions.net/hello-world"; // Substitua pelo URL da sua Cloud Function
-  const headers = {
-    Authorization: `Bearer ${accessToken}`,
-  };
 
-  const response = await axios.get(cloudFunctionUrl, { headers });
+  const response = await axios.get(cloudFunctionUrl, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + accessToken,
+    },
+  });
 
   if (response.status !== 200) {
     throw new Error(
