@@ -25,18 +25,16 @@ async function callFunction(functionFullName, data) {
 
 // Chame a função assincronamente
 
-exports.home = async () => {
+exports.home = async (data) => {
   // Substitua 'seu-projeto' pelo ID do seu projeto no Google Cloud
   const projectId = "freela-arbitralis-406815";
   const location = "southamerica-east1"; // Substitua pela região onde sua função está implantada
   const functionName = "export-excel-to-emai";
 
-  // Crie o nome da função com base no projeto, localização e nome da função
   const functionFullName = `projects/${projectId}/locations/${location}/functions/${functionName}`;
 
-  // Parâmetros que você deseja passar para a função (opcional)
-  const data = {
-    data: {
+  const dados = {
+    data: data || {
       Nome: ["Alan", "Maria", "Pedro"],
       Idade: [25, 30, 35],
       Data_Nascimento: ["1990/05/15", "1985/08/21", "1980/03/10"],
@@ -45,5 +43,5 @@ exports.home = async () => {
   };
 
   // Chame a função
-  return await callFunction(functionFullName, data);
+  return await callFunction(functionFullName, dados);
 };
